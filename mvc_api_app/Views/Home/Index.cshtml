@@ -1,0 +1,156 @@
+﻿@using mvc_api_app.Models
+@model IEnumerable<Student>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблиця користувачів</title>
+    <style>
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f4f7f6;
+                padding: 40px 20px;
+            }
+
+            .table-container {
+                max-width: 1000px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                overflow-x: auto;
+            }
+
+            .users-table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+                min-width: 600px;
+            }
+
+                .users-table th {
+                    background-color: #4f46e5;
+                    color: #ffffff;
+                    padding: 14px 18px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    font-size: 13px;
+                    letter-spacing: 0.5px;
+                }
+
+                .users-table td {
+                    padding: 12px 18px;
+                    border-bottom: 1px solid #e5e7eb;
+                    color: #4b5563;
+                    font-size: 15px;
+                }
+
+                .users-table tbody tr:nth-child(even) {
+                    background-color: #f9fafb;
+                }
+
+                .users-table tbody tr:hover {
+                    background-color: #f3f4f6;
+                    transition: background-color 0.2s ease;
+                }
+
+            .status {
+                display: inline-block;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+                .status.active {
+                    background-color: #d1fae5;
+                    color: #065f46;
+                }
+
+                .status.inactive {
+                    background-color: #fee2e2;
+                    color: #991b1b;
+                }
+
+            .btn {
+                display: inline-block;
+                padding: 6px 12px;
+                border-radius: 4px;
+                text-decoration: none;
+                color: white;
+                font-size: 13px;
+                margin-right: 4px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-create {
+                background-color: #10b981;
+                margin-bottom: 15px;
+            }
+
+            .btn-edit {
+                background-color: #f59e0b;
+            }
+
+            .btn-details {
+                background-color: #3b82f6;
+            }
+
+            .btn-delete {
+                background-color: #ef4444;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="table-container">
+        <h2>Список студентів</h2>
+        <a asp-controller="Home" asp-action="Create" class="btn btn-create">+ Додати студента</a>
+
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ім'я</th>
+                    <th>Email</th>
+                    <th>Роль</th>
+                    <th>Статус</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@student.Email</td>
+                        <td>@student.Role</td>
+                        <td>
+                            @if (student.Status)
+                            {
+                                <span class="status active">Активний</span>
+                            }
+                            else
+                            {
+                                <span class="status inactive">Неактивний</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-edit">Редагувати</a>
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@student.Id" class="btn btn-details">Деталі</a>
+                            <a asp-controller="Home" asp-action="Delete" asp-route-id="@student.Id" class="btn btn-delete">Видалити</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

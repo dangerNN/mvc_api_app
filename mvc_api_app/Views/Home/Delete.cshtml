@@ -1,0 +1,66 @@
+﻿@model mvc_api_app.Models.Student
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Видалити студента</title>
+    <style>
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f4f7f6;
+                padding: 40px 20px;
+            }
+
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .alert {
+                color: #ef4444;
+                font-weight: bold;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                border-radius: 4px;
+                text-decoration: none;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-danger {
+                background-color: #ef4444;
+            }
+
+            .btn-secondary {
+                background-color: #6b7280;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="alert">Ви впевнені, що хочете видалити цього студента?</h2>
+        <div>
+            <p><strong>Ім'я:</strong> @Model.Name</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Роль:</strong> @Model.Role</p>
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Видалити</button>
+            <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+        </form>
+    </div>
+
+</body>
+</html>
